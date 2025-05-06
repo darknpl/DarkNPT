@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DarkNPT ☄</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Arial', sans-serif;
+      color: #fff;
+      background: #000;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    
+    /* Floating Balls Animation - Slowed down */
+    .floating-balls {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    
+    .ball {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(1px);
+      opacity: 0.5;
+      animation: float 25s infinite linear;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-100px) translateX(100px) rotate(180deg);
+      }
+      100% {
+        transform: translateY(0) translateX(0) rotate(360deg);
+      }
+    }
+    
+    /* Main Container - Page Style */
+    .container {
+      max-width: 500px;
+      width: 100%;
+      padding: 40px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #00ffff, #ff00ff, #00ff00, #ffff00);
+      z-index: -1;
+      background-size: 400%;
+      animation: borderGlow 12s linear infinite;
+      border-radius: 10px;
+      opacity: 0.5;
+    }
+    
+    @keyframes borderGlow {
+      0% {
+        background-position: 0 0;
+      }
+      50% {
+        background-position: 400% 0;
+      }
+      100% {
+        background-position: 0 0;
+      }
+    }
+    
+    /* Profile Image */
+    img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      border: 2px solid #00ffff;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    
+    img:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Neon Glow Title - Slowed down */
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #fff;
+      text-shadow: 0 0 5px #00ffff;
+      animation: neonGlow 3s ease-in-out infinite alternate;
+    }
+    
+    @keyframes neonGlow {
+      from {
+        text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+      }
+      to {
+        text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+      }
+    }
+    
+    .username {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: #00ffff;
+    }
+    
+    .bio {
+      font-size: 1rem;
+      margin: 25px 0;
+      color: #aaa;
+      font-style: italic;
+      letter-spacing: 1px;
+    }
+    
+    /* Buttons */
+    .btn {
+      display: block;
+      margin: 15px auto;
+      padding: 12px 25px;
+      background: linear-gradient(45deg, #00ffff, #0088ff);
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+      width: 90%;
+      max-width: 300px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 255, 255, 0.5);
+    }
+    
+    .btn:active {
+      transform: translateY(1px);
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+    
+    .btn:hover::before {
+      left: 100%;
+    }
+    
+    /* Instagram Button Special Style */
+    .instagram-btn {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    }
+    
+    /* Developer Link */
+    .developer {
+      margin-top: 30px;
+    }
+    
+    .developer a {
+      color: #00ffff;
+      text-decoration: none;
+      border: 1px solid #00ffff;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+    
+    .developer a:hover {
+      background: #00ffff;
+      color: #000;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    }
+    
+    /* Footer */
+    footer {
+      margin-top: auto;
+      padding: 20px;
+      color: #555;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating Balls - Reduced quantity and slowed down -->
+  <div class="floating-balls" id="floatingBalls"></div>
+  
+  <!-- Main Container -->
+  <div class="container">
+    <img src="https://i.ibb.co/TBCN8Zty/51984b39-0cfb-4a0e-8993-82d5c3c1ec68.png" alt="Profile Picture">
+    
+    <h1>DarkNPT ☄</h1>
+    <div class="username">✈ ᴅᴀʀᴋ ɴᴘᴛ ʙɪᴏ �ᴘᴀɢᴇ ✦</div>
+    <div class="bio">•••••••••••••••••••••••••••</div>
+    
+    <a href="https://t.me/DarkNPT" class="btn">Telegram Channel</a>
+    <a href="https://youtube.com/@bt_mix_music" class="btn">YouTube</a>
+    <a href="https://t.me/+qJYyEnRj21NlYjk1" class="btn">Earn Loot</a>
+    <a href="https://instagram.com/dark_npt" class="btn instagram-btn">Instagram</a>
+    
+    <div class="developer">
+      <a href="https://t.me/DarkNPT">ᴅᴇᴠᴇʟᴏᴘᴇʀ</a>
+    </div>
+  </div>
+
+  <footer>
+    © 2023 DarkNPT | All Rights Reserved
+  </footer>
+
+  <script>
+    // Create floating balls - reduced quantity and slowed down
+    const floatingBalls = document.getElementById('floatingBalls');
+    const colors = ['#00ffff', '#ff00ff', '#00ff00', '#ffff00', '#ff9900', '#9900ff'];
+    
+    for (let i = 0; i < 15; i++) {
+      const ball = document.createElement('div');
+      ball.classList.add('ball');
+      
+      // Random properties
+      const size = Math.random() * 15 + 5;
+      const posX = Math.random() * 100;
+      const posY = Math.random() * 100;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const delay = Math.random() * 20;
+      const duration = 20 + Math.random() * 30;
+      
+      // Apply styles
+      ball.style.width = `${size}px`;
+      ball.style.height = `${size}px`;
+      ball.style.left = `${posX}%`;
+      ball.style.top = `${posY}%`;
+      ball.style.background = color;
+      ball.style.animationDelay = `${delay}s`;
+      ball.style.animationDuration = `${duration}s`;
+      
+      floatingBalls.appendChild(ball);
+    }
+    
+    // Add subtle mouse move effect to container
+    const container = document.querySelector('.container');
+    
+    container.addEventListener('mousemove', (e) => {
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      
+      container.style.transform = `perspective(1000px) rotateX(${(y - 0.5) * 3}deg) rotateY(${(x - 0.5) * 3}deg)`;
+    });
+    
+    container.addEventListener('mouseleave', () => {
+      container.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+    });
+  </script>
+</body>
+</html>
